@@ -10,12 +10,10 @@ function App() {
     if (window.Telegram && window.Telegram.WebApp) {
       const telegram = window.Telegram.WebApp;
       telegram.ready();
-
+      
       console.log("Telegram WebApp initialized:", telegram);
 
-      const initData = telegram.initData || {};
-      const user = initData.user || telegram.initDataUnsafe?.user;
-
+      const user = telegram.initDataUnsafe?.user;
       if (user) {
         console.log("User information:", user);
         setUserId(user.id);
@@ -26,7 +24,7 @@ function App() {
       console.warn('Telegram WebApp is not available');
     }
     setLoading(false);
-  }, []);  
+  }, []);
 
   return (
     <div className="App">
