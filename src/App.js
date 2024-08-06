@@ -7,39 +7,31 @@ function App() {
 
   useEffect(() => {
     console.log("Initializing Telegram WebApp...");
-    console.log("window.Telegram:", window.Telegram);
-  
-    if (window.Telegram) {
-      console.log("Telegram object found:", window.Telegram);
-      if (window.Telegram.WebApp) {
-        const telegram = window.Telegram.WebApp;
-        telegram.ready();
-    
-        console.log("Telegram WebApp initialized:", telegram);
-    
-        const initData = telegram.initData || {};
-        const user = initData.user || telegram.initDataUnsafe?.user;
-    
-        if (user) {
-          console.log("User information:", user);
-          setUserId(user.id);
-        } else {
-          console.warn('User information is not available');
-        }
+    if (window.Telegram && window.Telegram.WebApp) {
+      const telegram = window.Telegram.WebApp;
+      telegram.ready();
+
+      console.log("Telegram WebApp initialized:", telegram);
+
+      const initData = telegram.initData || {};
+      const user = initData.user || telegram.initDataUnsafe?.user;
+
+      if (user) {
+        console.log("User information:", user);
+        setUserId(user.id);
       } else {
-        console.warn('Telegram WebApp is not available');
+        console.warn('User information is not available');
       }
     } else {
-      console.warn('Telegram object is not available');
+      console.warn('Telegram WebApp is not available');
     }
     setLoading(false);
-  }, []);
-  
+  }, []);  
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>WhosCat</h1>
+        <h1>Telegram WebApp</h1>
         {loading ? (
           <p>Loading user information...</p>
         ) : userId ? (
