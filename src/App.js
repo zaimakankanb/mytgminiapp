@@ -7,26 +7,34 @@ function App() {
 
   useEffect(() => {
     console.log("Initializing Telegram WebApp...");
-    if (window.Telegram && window.Telegram.WebApp) {
-      const telegram = window.Telegram.WebApp;
-      telegram.ready();
-
-      console.log("Telegram WebApp initialized:", telegram);
-
-      const initData = telegram.initData || {};
-      const user = initData.user || telegram.initDataUnsafe?.user;
-
-      if (user) {
-        console.log("User information:", user);
-        setUserId(user.id);
+    console.log("window.Telegram:", window.Telegram);
+  
+    if (window.Telegram) {
+      console.log("Telegram object found:", window.Telegram);
+      if (window.Telegram.WebApp) {
+        const telegram = window.Telegram.WebApp;
+        telegram.ready();
+    
+        console.log("Telegram WebApp initialized:", telegram);
+    
+        const initData = telegram.initData || {};
+        const user = initData.user || telegram.initDataUnsafe?.user;
+    
+        if (user) {
+          console.log("User information:", user);
+          setUserId(user.id);
+        } else {
+          console.warn('User information is not available');
+        }
       } else {
-        console.warn('User information is not available');
+        console.warn('Telegram WebApp is not available');
       }
     } else {
-      console.warn('Telegram WebApp is not available');
+      console.warn('Telegram object is not available');
     }
     setLoading(false);
-  }, []);  
+  }, []);
+  
 
   return (
     <div className="App">
