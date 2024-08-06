@@ -6,14 +6,19 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const telegram = window.Telegram.WebApp;
-    telegram.ready();
-
-    const user = telegram.initDataUnsafe?.user;
-    if (user) {
-      setUserId(user.id);
+    if (window.Telegram && window.Telegram.WebApp) {
+      const telegram = window.Telegram.WebApp;
+      telegram.ready();
+  
+      const user = telegram.initDataUnsafe?.user;
+      if (user) {
+        setUserId(user.id);
+      }
+      setLoading(false);
+    } else {
+      console.warn('Telegram WebApp is not available');
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   return (
