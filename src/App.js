@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import './App.css';
 
 function App() {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    // Telegram WebApp 通过 Telegram 对象提供用户信息
+    // 初始化 Telegram WebApp 对象
     const telegram = window.Telegram.WebApp;
+
+    // 准备 Telegram WebApp
     telegram.ready();
-    
-    // 获取用户ID并设置到状态中
+
+    // 获取用户信息
     const user = telegram.initDataUnsafe?.user;
+
+    // 如果用户信息存在，设置用户 ID 到状态中
     if (user) {
       setUserId(user.id);
     }
@@ -17,12 +22,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Welcome to the Telegram WebApp!</h1>
-      {userId ? (
-        <p>Your User ID: {userId}</p>
-      ) : (
-        <p>Loading your User ID...</p>
-      )}
+      <header className="App-header">
+        <h1>Telegram WebApp</h1>
+        {userId ? (
+          <p>Your Telegram User ID: {userId}</p>
+        ) : (
+          <p>Loading user information...</p>
+        )}
+      </header>
     </div>
   );
 }
