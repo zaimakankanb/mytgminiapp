@@ -1,44 +1,70 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
+import Home from './pages/Home';
+import Cat from './pages/Cat';
+import Friend from './pages/Friend';
 import './App.css';
 
 function App() {
-  const [userId, setUserId] = useState(null);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    console.log("Initializing Telegram WebApp...");
     if (window.Telegram && window.Telegram.WebApp) {
-      const telegram = window.Telegram.WebApp;
-      telegram.ready();
-      
-      console.log("Telegram WebApp initialized:", telegram);
+      const themeParams = window.Telegram.WebApp.themeParams;
 
-      const user = telegram.initDataUnsafe?.user;
-      if (user) {
-        console.log("User information:", user);
-        setUserId(user.id);
-      } else {
-        console.warn('User information is not available');
-      }
-    } else {
-      console.warn('Telegram WebApp is not available');
+      // 设置CSS变量以适应主题
+      document.documentElement.style.setProperty('--tg-theme-bg-color', themeParams.bg_color || '#ffffff');
+      document.documentElement.style.setProperty('--tg-theme-text-color', themeParams.text_color || '#000000');
+      document.documentElement.style.setProperty('--tg-theme-link-color', themeParams.link_color || '#1b95e0');
+      document.documentElement.style.setProperty('--tg-theme-button-color', themeParams.button_color || '#1b95e0');
+      document.documentElement.style.setProperty('--tg-theme-button-text-color', themeParams.button_text_color || '#ffffff');
     }
-    setLoading(false);
+
+    // 动态生成猫爪印
+    const generatePaws = () => {
+      const container = document.querySelector('.paw-container');
+      if (container) {
+        for (let i = 0; i < 20; i++) {
+          const paw = document.createElement('div');
+          paw.className = 'paw';
+          paw.style.left = `${Math.random() * 100}%`;
+          paw.style.animationDelay = `${Math.random() * 5}s`;
+          paw.style.opacity = Math.random();
+          container.appendChild(paw);
+        }
+      }
+    };
+
+    generatePaws();
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Telegram WebApp</h1>
-        {loading ? (
-          <p>Loading user information...</p>
-        ) : userId ? (
-          <p>Your Telegram User ID: {userId}</p>
-        ) : (
-          <p>Unable to retrieve user information.</p>
-        )}
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <div className="paw-container"></div>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cat" element={<Cat />} />
+            <Route path="/friend" element={<Friend />} />
+          </Routes>
+        </main>
+        <footer className="App-footer">
+          <nav className="App-tabs">
+            <NavLink to="/" className="App-tab" activeClassName="active">
+              <img src="/icons/home.svg" alt="Home" />
+              <span>Home</span>
+            </NavLink>
+            <NavLink to="/cat" className="App-tab" activeClassName="active">
+              <img src="/icons/cat.svg" alt="Cat" />
+              <span>Cat</span>
+            </NavLink>
+            <NavLink to="/friend" className="App-tab" activeClassName="active">
+              <img src="/icons/friend.svg" alt="Friend" />
+              <span>Friend</span>
+            </NavLink>
+          </nav>
+        </footer>
+      </div>
+    </Router>
   );
 }
 
