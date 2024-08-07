@@ -5,9 +5,30 @@ import Cat from './pages/Cat';
 import Friend from './pages/Friend';
 import './App.css';
 import HomeCat from './components/HomeCat/HomeCat';
+import { getUserById, createUser } from './api/user'; // 导入用户 API
 
 function App() {
   useEffect(() => {
+    const initUser = async () => {
+      try {
+        // 从 Telegram SDK 获取用户 ID
+        const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+
+        // 检查用户是否存在
+        const user = await getUserById(userId);
+
+        if (!user) {
+          // 如果用户不存在，创建用户
+          await createUser(userId);
+          console.log(`User with ID ${userId} created.`);
+        } else {
+          console.log(`User with ID ${userId} already exists.`);
+        }
+      } catch (error) {
+        console.error('Error initializing user:', error);
+      }
+    };
+
     if (window.Telegram && window.Telegram.WebApp) {
       const themeParams = window.Telegram.WebApp.themeParams;
 
@@ -17,6 +38,9 @@ function App() {
       document.documentElement.style.setProperty('--tg-theme-link-color', themeParams.link_color || '#1b95e0');
       document.documentElement.style.setProperty('--tg-theme-button-color', themeParams.button_color || '#1b95e0');
       document.documentElement.style.setProperty('--tg-theme-button-text-color', themeParams.button_text_color || '#ffffff');
+
+      // 初始化用户信息
+      initUser();
     }
 
     // 动态生成猫爪印
