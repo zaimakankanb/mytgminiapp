@@ -1,12 +1,23 @@
+// pages/Cat.js
+
 import React from 'react';
-import catImage from '../assets/cat.png'; // 需要导入一张可爱的猫的图片
+import styles from '../assets/styles/Cat.module.css'; // 将 CSS 样式放入这个文件
 
 function Cat() {
   return (
-    <div className="card">
-      <h2>Your Virtual Cat</h2>
-      <img src={catImage} alt="Cute Cat" style={{ width: '200px', borderRadius: '10px' }} />
-      <p>Here is your cute virtual cat!</p>
+    <div id="app" className={styles.catApp}>
+      <div className={styles.stage}>
+        <div className={styles.background}></div>
+        <div className={styles.cat}>
+          <div className={styles.body}>
+            <div className={styles.tail}></div>
+          </div>
+          <div className={styles.foreLegs}></div>
+          <div className={styles.face}>
+            <div className={styles.eyes}></div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

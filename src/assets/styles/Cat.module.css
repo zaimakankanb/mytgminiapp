@@ -1,0 +1,204 @@
+/* Cat.module.css */
+
+html, body {
+  margin: 0;
+  overflow: hidden;
+}
+
+@keyframes eyesBlank {
+  0% {
+    transform: scaleY(0);
+  }
+  20% {
+    transform: scaleY(1);
+  }
+  30% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.catApp {
+  --catColor: #161616;
+  --highlightColor: #222; /* 悬停时的颜色 */
+  --bgColor: #161616;
+  height: 100vh;
+  width: 100vw;
+}
+
+.stage {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: var(--bgColor);
+}
+
+.cat {
+  position: absolute;
+  top: 300px;
+  left: 300px;
+  cursor: pointer;
+}
+
+.cat:hover .body,
+.cat:hover .tail::before,
+.cat:hover .foreLegs::before,
+.cat:hover .foreLegs::after,
+.cat:hover .face,
+.cat:hover .face::before,
+.cat:hover .face::after,
+.cat:hover .body::after {
+  background-color: var(--highlightColor);
+}
+
+/* 为变色过程添加过渡效果 */
+.body,
+.tail::before,
+.foreLegs::before,
+.foreLegs::after,
+.face,
+.face::before,
+.face::after,
+.body::after {
+  transition: background-color 0.3s ease-in-out; /* 过渡效果 */
+}
+
+/* 猫的身体 */
+.body {
+  position: absolute;
+  width: 35px;
+  height: 25px;
+  background-color: var(--catColor);
+  border-radius: 50%;
+  right: -15px;
+  top: 10px;
+}
+
+.body::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: var(--catColor);
+  border-radius: 50%;
+  right: -3px;
+  bottom: -3px;
+}
+
+/* 猫的尾巴 */
+.tail {
+  position: absolute;
+  right: -20px;
+  top: -42px;
+  width: 25px;
+  height: 50px;
+  overflow: hidden;
+  background-color: var(--bgColor); /* 保持背景颜色不变 */
+}
+
+.tail::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: var(--catColor);
+  border-radius: 100%;
+  transform: translateX(-25px);
+}
+
+.tail::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bgColor); /* 保持背景颜色不变 */
+  border-radius: 100%;
+  top: 5px;
+  left: 5px;
+  transform: translateX(-25px);
+}
+
+/* 猫的前腿 */
+.foreLegs {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.foreLegs::before,
+.foreLegs::after {
+  position: absolute;
+  content: "";
+  width: 25px;
+  height: 15px;
+  background-color: var(--catColor);
+  top: 0px;
+  border-radius: 50%;
+}
+
+.foreLegs::before {
+  left: -30px;
+}
+
+/* 猫的脸 */
+.face {
+  position: relative;
+  width: 60px;
+  height: 40px;
+  background-color: var(--catColor);
+  border-radius: 100%;
+}
+
+.face::before,
+.face::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--catColor);
+  z-index: 0;
+}
+
+.face::before {
+  left: 0px;
+  transform: rotate(30deg);
+  transform-origin: bottom right;
+}
+
+.face::after {
+  right: 0px;
+  transform: rotate(-30deg);
+  transform-origin: bottom left;
+}
+
+/* 猫的眼睛 */
+.eyes {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.eyes::before,
+.eyes::after {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: #fbcf2e; /* 保持眼睛原色 */
+  transform-origin: center;
+  animation: eyesBlank 1.8s 0s infinite ease-in;
+}
+
+.eyes::before {
+  left: -20px;
+}
+
+.eyes::after {
+  right: -10px;
+}
