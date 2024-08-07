@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Cat from './pages/Cat';
 import Friend from './pages/Friend';
 import './App.css';
+import HomeCat from './components/HomeCat/HomeCat';
 
 function App() {
   useEffect(() => {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/friend" element={<Friend />} />
           </Routes>
         </main>
+        <HomeCat />
         <footer className="App-footer">
           <nav className="App-tabs">
             <NavLink to="/" className="App-tab" activeClassName="active">

@@ -9,14 +9,14 @@
 body {
   margin: 0;
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  background-color: var(--bg-color);
+  background-color: var(--tg-theme-text-color);
   color: var(--text-color);
 }
 
 main {
   padding: 20px;
   min-height: calc(100vh - 60px);
-  background-color: var(--bg-color);
+  background-color: #161616;
 }
 
 .card {
@@ -26,17 +26,19 @@ main {
   padding: 20px;
   margin: 20px;
   text-align: center;
+  z-index: 1;
 }
 
 .App-footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: var(--bg-color);
+  background-color: #000000;
   border-top: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
+  z-index: 1;
 }
 
 .App-tabs {
@@ -47,7 +49,7 @@ main {
 
 .App-tab {
   text-align: center;
-  color: var(--text-color);
+  color: var(--tg-theme-button-text-color);
   text-decoration: none;
   font-size: 0.9rem;
   display: flex;
@@ -85,7 +87,7 @@ main {
   top: -50px;
   width: 30px;
   height: 30px;
-  background-image: url('/icons/paw.svg');
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 13C15 13 17.5 15.5 17.5 18.5C17.5 19.5 16.5 20.5 15.5 20.5C14.5 20.5 13.5 20 12 19C10.5 20 9.5 20.5 8.5 20.5C7.5 20.5 6.5 19.5 6.5 18.5C6.5 15.5 9 13 12 13ZM8.5 10.5C9.9 10.5 11 9.4 11 8C11 6.6 9.9 5.5 8.5 5.5C7.1 5.5 6 6.6 6 8C6 9.4 7.1 10.5 8.5 10.5ZM15.5 10.5C16.9 10.5 18 9.4 18 8C18 6.6 16.9 5.5 15.5 5.5C14.1 5.5 13 6.6 13 8C13 9.4 14.1 10.5 15.5 10.5ZM5.5 15C6.4 15 7.1 14.3 7.1 13.4C7.1 12.5 6.4 11.8 5.5 11.8C4.6 11.8 3.9 12.5 3.9 13.4C3.9 14.3 4.6 15 5.5 15ZM18.5 15C19.4 15 20.1 14.3 20.1 13.4C20.1 12.5 19.4 11.8 18.5 11.8C17.6 11.8 16.9 12.5 16.9 13.4C16.9 14.3 17.6 15 18.5 15Z' fill='%23000000'/%3E%3C/svg%3E"); /* 这里的路径是直接嵌入的 SVG 代码 */
   background-size: contain;
   background-repeat: no-repeat;
   animation: fall linear infinite;
@@ -97,6 +99,27 @@ main {
     transform: translateY(100vh);
   }
 }
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.animation-container {
+  width: 80%;
+  height: 200px; /* 你可以根据需要调整高度 */
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px; /* 与 card 之间的间距 */
+}
+
+.animation-container canvas {
+  width: 100%;
+  height: 100%;
+}
+
 
 main {
   transition: opacity 0.5s ease-in-out;
